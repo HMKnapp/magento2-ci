@@ -47,3 +47,6 @@ jobs:
 
       - name: Run test
         run: curl -L https://${{ steps.ngrok.outputs.host }}
+
+      - name: Wait for 5 minutes
+        run: sleep 5m
