@@ -14,6 +14,7 @@ jobs:
           MARIADB_DATABASE: bitnami_magento
       magento:
         image: docker.io/bitnami/magento:2
+        options: "--name magento"
         ports:
           - "80:8080"
           - "443:8443"
@@ -37,7 +38,7 @@ jobs:
           pwd
           npm install ngrok
           ls -l
-          echo "::set-output name=host::$(bash CI/scripts/ngrok.sh)"
+          echo "::set-output name=host::$(bash CI/scripts/ngrok.sh ${NGROK_TOKEN})"
         id: ngrok
 
       - name: Modify Magento
