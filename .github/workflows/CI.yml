@@ -33,7 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: NGROK
+      - name: Start ngrok
         run: |
           npm install ngrok &>/dev/null
           ls -l
@@ -45,5 +45,5 @@ jobs:
           docker ps
           bash CI/scripts/modify_magento.sh ${{ steps.ngrok.outputs.host }}
 
-      - name: Curl test
+      - name: Run test
         run: curl -L https://${{ steps.ngrok.outputs.host }}

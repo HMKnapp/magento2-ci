@@ -22,7 +22,7 @@ if [[ -z ${NGROK_TOKEN} ]]; then
   exit 1
 fi
 
-./node_modules/ngrok/bin/ngrok authtoken ${NGROK_TOKEN}
+./node_modules/ngrok/bin/ngrok authtoken ${NGROK_TOKEN} >&/dev/null
 ./node_modules/ngrok/bin/ngrok http 80 >&/dev/null &
 wait_for_ngrok
 export NGROK_URL=$(get_ngrok_url)
