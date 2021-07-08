@@ -41,7 +41,9 @@ jobs:
         id: ngrok
 
       - name: Modify Magento
-        run: bash CI/scripts/modify_magento.sh ${{ steps.ngrok.outputs.host }}
+        run: |
+          docker ps
+          bash CI/scripts/modify_magento.sh ${{ steps.ngrok.outputs.host }}
 
       - name: Curl test
         run: curl -L https://${{ steps.ngrok.outputs.host }}
