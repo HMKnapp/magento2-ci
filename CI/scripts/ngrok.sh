@@ -20,6 +20,8 @@ if [[ -z ${NGROK_TOKEN} ]]; then
   exit 1
 fi
 
+ls -l ./node_modules/ngrok/bin/
+
 ./node_modules/ngrok/bin/ngrok authtoken ${NGROK_TOKEN}
 ./node_modules/ngrok/bin/ngrok http 80 >&/dev/null &
 wait_for_ngrok
