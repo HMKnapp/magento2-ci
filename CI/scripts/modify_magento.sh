@@ -4,7 +4,7 @@ set -xe
 
 NGROK_HOST=${1}
 
-sleep 10
+sleep 120
 sudo docker exec --interactive magento /bin/bash <<EOF
 cd /opt/bitnami/magento
 php bin/magento setup:store-config:set --base-url="http://${NGROK_HOST}/"
