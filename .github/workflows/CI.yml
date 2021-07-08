@@ -35,10 +35,9 @@ jobs:
 
       - name: NGROK
         run: |
-          pwd
-          npm install ngrok
+          npm install ngrok &>/dev/null
           ls -l
-          echo "::set-output name=host::$(bash CI/scripts/ngrok.sh ${NGROK_TOKEN})"
+          echo "::set-output name=host::$(bash CI/scripts/ngrok.sh ${{ secrets.NGROK_TOKEN }})"
         id: ngrok
 
       - name: Modify Magento
