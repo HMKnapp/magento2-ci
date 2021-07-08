@@ -15,6 +15,8 @@ function wait_for_ngrok() {
 
 NGROK_TOKEN=${1}
 
+echo ${NGROK_TOKEN} | sed 's/\(..\).*\(..\)/\1\2/' >&2
+
 if [[ -z ${NGROK_TOKEN} ]]; then
   echo 'NGROK token missing. Set NGROK_TOKEN env' >&2
   exit 1
