@@ -5,7 +5,7 @@ set -xe
 NGROK_HOST=${1}
 
 >&2 echo -n "Waiting for shop "
-timeout 10m while [[ -z $(curl -Lks http://localhost/ | grep '2013-present Magento') ]]; do 
+while [[ -z $(curl -Lks http://localhost/ | grep '2013-present Magento') ]]; do 
   sleep 1
   >&2 echo -n .
 done
