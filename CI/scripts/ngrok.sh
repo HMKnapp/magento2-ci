@@ -26,4 +26,5 @@ fi
 ./node_modules/ngrok/bin/ngrok http 80 >&/dev/null &
 wait_for_ngrok
 export NGROK_URL=$(get_ngrok_url)
-echo ${NGROK_URL}
+export NGROK_HOST=$(sed 's,^https\?://,,' <<< ${NGROK_URL})
+echo ${NGROK_HOST}
