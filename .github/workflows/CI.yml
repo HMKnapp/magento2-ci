@@ -1,0 +1,47 @@
+name: Magento
+
+on: [push]
+
+jobs:
+  Shop:
+    runs-on: ubuntu-18.04
+    services:
+      mariadb:
+        image: docker.io/bitnami/mariadb:10.3
+        env:
+          ALLOW_EMPTY_PASSWORD: yes
+          MARIADB_USER: bn_magento
+          MARIADB_DATABASE: bitnami_magento
+      magento:
+        image: docker.io/bitnami/magento:2
+        ports:
+          - "80:8080"
+          - "443:8443"
+        env:
+          MAGENTO_HOST: localhost
+          MAGENTO_DATABASE_HOST: mariadb
+          MAGENTO_DATABASE_PORT_NUMBER: 3306
+          MAGENTO_DATABASE_USER: bn_magento
+          MAGENTO_DATABASE_NAME: bitnami_magento
+          ELASTICSEARCH_HOST: elasticsearch
+          ELASTICSEARCH_PORT_NUMBER: 9200
+          ALLOW_EMPTY_PASSWORD: yes
+      elasticsearch:
+        image: docker.io/bitnami/elasticsearch:6
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: NGROK
+        run: |
+          pwd
+          npm install ngrok
+          ls -l
+          echo "::set-output name=host::$(bash CI/scripts/ngrok.sh)"
+        id: ngrok
+
+      - name: Modify Magento
+        run: bash CI/scripts/modify_magento.sh ${{ steps.ngrok.outputs.host }}
+
+      - name: Curl test
+        run: curl -L https://${{ steps.ngrok.outputs.host }}
