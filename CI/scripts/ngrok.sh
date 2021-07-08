@@ -23,7 +23,7 @@ fi
 ls -l ./node_modules/ngrok/bin/
 
 ./node_modules/ngrok/bin/ngrok authtoken ${NGROK_TOKEN}
-./node_modules/ngrok/bin/ngrok http 80 >&/dev/null &
+./node_modules/ngrok/bin/ngrok http 80 #>&/dev/null &
 wait_for_ngrok
 export NGROK_URL=$(get_ngrok_url)
 echo ${NGROK_URL}
