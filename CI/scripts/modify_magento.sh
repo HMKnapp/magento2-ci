@@ -16,6 +16,7 @@ echo "Setting Magento Adobe Auth token for ${MAGENTO_ACC_PUBKEY}"
 composer config http-basic.repo.magento.com ${MAGENTO_ACC_PUBKEY} ${MAGENTO_ACC_PRIVKEY}
 echo "Installing sample data"
 php bin/magento sampledata:deploy
+php bin/magento setup:upgrade
 echo "Changing magento base-url to https://${NGROK_HOST}/"
 php bin/magento setup:store-config:set --base-url="http://${NGROK_HOST}/"
 php bin/magento setup:store-config:set --base-url-secure="https://${NGROK_HOST}/"
