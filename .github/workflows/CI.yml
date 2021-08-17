@@ -36,13 +36,11 @@ jobs:
       - name: Start ngrok
         run: |
           npm install ngrok &>/dev/null
-          ls -l
           echo "::set-output name=host::$(bash CI/scripts/ngrok.sh ${{ secrets.NGROK_TOKEN }})"
         id: ngrok
 
       - name: Modify Magento
         run: |
-          docker ps
           bash CI/scripts/modify_magento.sh ${{ steps.ngrok.outputs.host }}
         env:
           MAGENTO_ACC_PUBKEY: ${{ secrets.MAGENTO_ACC_PUBKEY }}
