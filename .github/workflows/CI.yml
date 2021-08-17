@@ -27,6 +27,7 @@ jobs:
           ELASTICSEARCH_HOST: elasticsearch
           ELASTICSEARCH_PORT_NUMBER: 9200
           ALLOW_EMPTY_PASSWORD: yes
+          PHP_MEMORY_LIMIT: 8G
       elasticsearch:
         image: docker.io/bitnami/elasticsearch:6
     steps:
