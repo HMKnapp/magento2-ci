@@ -17,4 +17,7 @@ php bin/magento setup:store-config:set --base-url="http://${NGROK_HOST}/"
 php bin/magento setup:store-config:set --base-url-secure="https://${NGROK_HOST}/"
 echo "Flushing cache"
 php bin/magento cache:flush >&/dev/null
+echo "Installing sample data"
+php bin/magento sampledata:deploy
+php bin/magento setup:upgrade
 EOF
