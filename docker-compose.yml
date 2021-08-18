@@ -1,0 +1,28 @@
+services:
+  magento_mariadb:
+    image: docker.io/bitnami/mariadb:10.3
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=bn_magento
+      - MARIADB_DATABASE=bitnami_magento
+  magento:
+    container_name: magento
+    image: docker.io/bitnami/magento:2
+    ports:
+      - "8000:8080"
+      - "4430:8443"
+    environment:
+      - MAGENTO_HOST=localhost
+      - MAGENTO_DATABASE_HOST=magento_mariadb
+      - MAGENTO_DATABASE_PORT_NUMBER=3306
+      - MAGENTO_DATABASE_USER=bn_magento
+      - MAGENTO_DATABASE_NAME=bitnami_magento
+      - ELASTICSEARCH_HOST=magento_elasticsearch
+      - ELASTICSEARCH_PORT_NUMBER=9200
+      - ALLOW_EMPTY_PASSWORD=yes
+      - PHP_MEMORY_LIMIT=8G
+      - MAGENTO_ACC_PUBKEY=${MAGENTO_ACC_PUBKEY}
+      - MAGENTO_ACC_PRIVKEY=${MAGENTO_ACC_PRIVKEY}
+      - NGROK_HOST= ${NGROK_HOST}
+  magento_elasticsearch:
+    image: docker.io/bitnami/elasticsearch:6
