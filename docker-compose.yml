@@ -9,8 +9,8 @@ services:
     container_name: magento
     image: docker.io/bitnami/magento:2
     ports:
-      - "8000:8080"
-      - "4430:8443"
+      - "8001:8080"
+      - "4431:8443"
     environment:
       - MAGENTO_HOST=localhost
       - MAGENTO_DATABASE_HOST=magento_mariadb
